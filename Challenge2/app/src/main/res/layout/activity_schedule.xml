@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Schedule">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:id="@+id/clockImage"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            app:srcCompat="@drawable/ic_access_time_black_24dp" />
+
+        <TextView
+            android:id="@+id/dayText"
+            android:layout_width="80dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Day"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/timeText1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="8.20 - 09.55" />
+
+        <TextView
+            android:id="@+id/subjectText1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="ASU"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
+
+        <TextView
+            android:id="@+id/timeText2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="10.10 - 11.45" />
+
+        <TextView
+            android:id="@+id/subjectText2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="ASU"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
+
+        <TextView
+            android:id="@+id/timeText3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="12.15 - 13.50" />
+
+        <TextView
+            android:id="@+id/subjectText3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="ASU"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
+
+        <TextView
+            android:id="@+id/timeText4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="14.05 - 15.40" />
+
+        <TextView
+            android:id="@+id/subjectText4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="ASU"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
+
+    </LinearLayout>
+
+</LinearLayout>

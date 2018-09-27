@@ -38,8 +38,10 @@
         android:orientation="vertical">
 
         <RadioGroup
+            android:id="@+id/radioGroupDays"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:checkedButton="@+id/radioButtonMon"
             android:orientation="horizontal">
 
             <RadioButton
@@ -90,7 +92,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="0"
             android:elevation="0dp"
-            android:text="Show Schedule" />
+            android:text="Show Schedule"
+            android:onClick="showSchedule"/>
 
     </LinearLayout>
 
@@ -164,6 +167,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:elevation="0dp"
-            android:text="Contact Administration" />
+            android:text="Contact Administration"
+            android:onClick="showContactPage"/>
     </LinearLayout>
 </LinearLayout>
