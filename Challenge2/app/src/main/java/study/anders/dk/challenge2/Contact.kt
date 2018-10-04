@@ -4,6 +4,7 @@ import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.content.Intent
+import android.net.Uri
 import kotlinx.android.synthetic.main.activity_contact.*
 
 class Contact : AppCompatActivity() {
@@ -12,17 +13,20 @@ class Contact : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_contact)
 
-        fun sendEmail(view: View) {
-            val subject = studentNoEditText.text.toString()
-            val message = messageEditText.text.toString()
+    }
 
-            val i = Intent(Intent.ACTION_SEND)
-            val addressees = arrayOf("somemail@somewhere.com")
-            i.putExtra(Intent.EXTRA_EMAIL, addressees)
-            i.putExtra(Intent.EXTRA_SUBJECT, subject)
-            i.putExtra(Intent.EXTRA_TEXT, message)
-            i.setType("message/rfc822")
-            startActivity(i)
-        }
+    fun sendEmail(view: View) {
+        val i = Intent(Intent.ACTION_SEND,
+                Uri.parse("mailto:"))
+
+        val to = arrayOf("andersreiche@ggmail.com")
+        val subject = studentNoEditText.text.toString()
+        val message = messageEditText.text.toString()
+
+        i.putExtra(Intent.EXTRA_EMAIL, to)
+        i.putExtra(Intent.EXTRA_SUBJECT, subject)
+        i.putExtra(Intent.EXTRA_TEXT, message)
+        i.setType("message/rfc822")
+        startActivity(Intent.createChooser(i, "Chose an email client from..."))
     }
 }
