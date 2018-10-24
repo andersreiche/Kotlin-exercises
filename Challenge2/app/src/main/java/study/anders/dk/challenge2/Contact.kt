@@ -19,7 +19,7 @@ class Contact : AppCompatActivity() {
         val i = Intent(Intent.ACTION_SEND,
                 Uri.parse("mailto:"))
 
-        val to = arrayOf("andersreiche@ggmail.com")
+        val to = "andersreiche@ggmail.com"
         val subject = studentNoEditText.text.toString()
         val message = messageEditText.text.toString()
 
