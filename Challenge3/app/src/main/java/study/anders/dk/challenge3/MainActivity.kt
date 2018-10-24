@@ -22,7 +22,6 @@ class MainActivity : AppCompatActivity() {
 
         fab.setOnClickListener { view ->
             showAddJournal()
-            Toast.makeText(this,"FAB Clicked",Toast.LENGTH_SHORT).show()
         }
 
         prefenceManager = JournalPreferenceManager(this)
