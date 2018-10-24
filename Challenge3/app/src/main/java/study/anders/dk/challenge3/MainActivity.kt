@@ -3,6 +3,7 @@ package study.anders.dk.challenge3
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar
 import android.view.*
 import android.widget.Toast
 
@@ -18,6 +19,8 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        val toolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
 
         fab.setOnClickListener { view ->
@@ -30,10 +33,26 @@ class MainActivity : AppCompatActivity() {
         dataArray = prefenceManager.getSavedJournals()
 
         //Create the custom Array Adapter
-        val journalAdapter = JournalListAdapter(this, 0, dataArray)
+        journalAdapter = JournalListAdapter(this, 0, dataArray)
 
         //Set adapter of the ListView
         main_listview.adapter = journalAdapter
+
+        //Grab data from AddJournalActivity and add to the list
+        val extras = intent.extras ?: return
+        val title = extras.get("Title")
+        val description = extras.get("Description")
+        val newEntry = JournalEntry(title.toString(), description.toString())
+        prefenceManager.saveJournal(newEntry)
+        updateListView()
+
+    }
+
+    fun updateListView() {
+        dataArray = prefenceManager.getSavedJournals()
+        journalAdapter.clear()
+        journalAdapter.addAll(dataArray)
+        journalAdapter.notifyDataSetChanged()
     }
 
     fun showAddJournal() {

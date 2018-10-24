@@ -21,6 +21,8 @@
         </activity>
         <activity android:name=".AddJournalActivity">
         </activity>
+        <activity android:name=".ViewJournalActivity">
+        </activity>
     </application>
 
 </manifest>
