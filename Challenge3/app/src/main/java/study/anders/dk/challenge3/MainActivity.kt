@@ -1,5 +1,6 @@
 package study.anders.dk.challenge3
 
+import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity;
 import android.view.*
@@ -20,6 +21,7 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(toolbar)
 
         fab.setOnClickListener { view ->
+            showAddJournal()
             Toast.makeText(this,"FAB Clicked",Toast.LENGTH_SHORT).show()
         }
 
@@ -33,6 +35,11 @@ class MainActivity : AppCompatActivity() {
 
         //Set adapter of the ListView
         main_listview.adapter = journalAdapter
+    }
+
+    fun showAddJournal() {
+        val i = Intent(this, AddJournalActivity::class.java)
+        startActivity(i)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
