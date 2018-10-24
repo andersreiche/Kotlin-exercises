@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar
 import android.view.*
+import android.widget.AdapterView
 import android.widget.Toast
 
 import kotlinx.android.synthetic.main.activity_main.*
@@ -46,6 +47,13 @@ class MainActivity : AppCompatActivity() {
         prefenceManager.saveJournal(newEntry)
         updateListView()
 
+        main_listview.setOnItemClickListener {
+            _: AdapterView<*>?, view: View?, position: Int, id: Long ->
+            // TODO: Create intent
+            // TODO: grab dataArray[position] for title and description
+            // TODO: send intent to ViewJournalActivity
+        }
+
     }
 
     fun updateListView() {
@@ -63,12 +71,5 @@ class MainActivity : AppCompatActivity() {
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_main, menu)
         return true
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when (item.itemId) {
-            R.id.main_menu_save -> true
-            else -> super.onOptionsItemSelected(item)
-        }
     }
 }
