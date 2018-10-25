@@ -31,11 +31,12 @@ class MainActivity : AppCompatActivity() {
 
         main_listview.setOnItemClickListener {
                 parent: AdapterView<*>?, view: View?, position: Int, id: Long ->
-            //Toast.makeText(this, "Clickeedy", Toast.LENGTH_SHORT).show()
-             val i = Intent(this, ViewJournalActivity::class.java)
-             i.putExtra("viewTitle", "TestTitle")
-             i.putExtra("viewDescription", "TestsDescription")
-             startActivity(i)
+            val extraTitle = dataArray[position].title
+            val extraDescription = dataArray[position].description
+            val i = Intent(this, ViewJournalActivity::class.java)
+            i.putExtra("viewTitle", extraTitle)
+            i.putExtra("viewDescription", extraDescription)
+            startActivity(i)
         }
 
         prefenceManager = JournalPreferenceManager(this)

@@ -5,4 +5,6 @@
     <string name="title">Title</string>
     <string name="titleHeaderText">Title</string>
     <string name="descriptionHeaderText">Description</string>
+    <string name="addJournalDescriptionHint">Description</string>
+    <string name="addJournalTitleHint">Title</string>
 </resources>
