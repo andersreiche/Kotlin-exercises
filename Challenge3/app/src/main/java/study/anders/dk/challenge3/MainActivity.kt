@@ -7,6 +7,7 @@ import android.support.v7.widget.Toolbar
 import android.view.*
 import android.widget.AdapterView
 import android.widget.Toast
+import kotlinx.android.synthetic.main.activity_add_journal.*
 
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -28,6 +29,15 @@ class MainActivity : AppCompatActivity() {
             showAddJournal()
         }
 
+        main_listview.setOnItemClickListener {
+                parent: AdapterView<*>?, view: View?, position: Int, id: Long ->
+            //Toast.makeText(this, "Clickeedy", Toast.LENGTH_SHORT).show()
+             val i = Intent(this, ViewJournalActivity::class.java)
+             i.putExtra("viewTitle", "TestTitle")
+             i.putExtra("viewDescription", "TestsDescription")
+             startActivity(i)
+        }
+
         prefenceManager = JournalPreferenceManager(this)
 
         //Fetch the dataArray
@@ -47,12 +57,6 @@ class MainActivity : AppCompatActivity() {
         prefenceManager.saveJournal(newEntry)
         updateListView()
 
-        main_listview.setOnItemClickListener {
-            _: AdapterView<*>?, view: View?, position: Int, id: Long ->
-            // TODO: Create intent
-            // TODO: grab dataArray[position] for title and description
-            // TODO: send intent to ViewJournalActivity
-        }
 
     }
 
