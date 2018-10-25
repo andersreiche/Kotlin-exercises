@@ -2,12 +2,11 @@ package study.anders.dk.challenge3
 
 import android.content.Intent
 import android.os.Bundle
+import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar
 import android.view.*
 import android.widget.AdapterView
-import android.widget.Toast
-import kotlinx.android.synthetic.main.activity_add_journal.*
 
 import kotlinx.android.synthetic.main.activity_main.*
 
@@ -29,6 +28,7 @@ class MainActivity : AppCompatActivity() {
             showAddJournal()
         }
 
+        //Click to view list entry
         main_listview.setOnItemClickListener {
                 parent: AdapterView<*>?, view: View?, position: Int, id: Long ->
             val extraTitle = dataArray[position].title
@@ -39,6 +39,24 @@ class MainActivity : AppCompatActivity() {
             startActivity(i)
         }
 
+        //Long click to remove list entry. Uses AlertDialog for confirmation
+        main_listview.setOnItemLongClickListener { parent, view, position, id ->
+            val alert = AlertDialog.Builder(this)
+            alert.setTitle(getString(R.string.alertDeleteConfirmationTitle))
+            alert.setMessage(getString(R.string.alertDeleteConfirmationText))
+            alert.setPositiveButton(getString(R.string.alertSetPositiveButtonText)) { dialog, which ->
+                //Delete list entry
+                dataArray.remove(dataArray[position])
+                journalAdapter.notifyDataSetChanged()
+            }
+            alert.setNegativeButton(getString(R.string.alertSetNegativeButtonText)){ dialog, which ->
+                //Do nothing
+            }
+            val dialog: AlertDialog = alert.create()
+            dialog.show()
+            true
+        }
+        
         prefenceManager = JournalPreferenceManager(this)
 
         //Fetch the dataArray
