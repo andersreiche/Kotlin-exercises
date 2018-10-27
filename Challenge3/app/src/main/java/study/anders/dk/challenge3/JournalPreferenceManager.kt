@@ -37,7 +37,40 @@ class JournalPreferenceManager(context: Context) {
             journalArrayList.add(currentEntry)
         }
 
-        return journalArrayList
+        return ArrayList(journalArrayList.sortedByDescending { it.timestamp })
+    }
+
+    fun removeJournal(journal : JournalEntry, journalComplete:ArrayList<JournalEntry> ){
+        val editor=preference.edit()
+        //The shared preferences are cleared, and we built it up again
+        //without the journal entry, that needs to be deleted.
+        editor.remove(PREFS_KEY_JOURNAL_SET)
+        editor.apply()
+
+        //Get the empty HastSet
+        val myJournalList = getHashSet()
+
+        //Initialize Gson
+        val gson = Gson()
+
+        //browse through the complete journal
+        for (entry in journalComplete) {
+            //the entry to be removed
+            val journalJsonString = gson.toJson(journal)
+
+            //the iterator
+            val entryJsonString = gson.toJson(entry)
+
+            //don't save the entry to be deleted
+            if (entryJsonString == journalJsonString){}
+            else{
+                //Add and save the rest
+                myJournalList.add(entryJsonString)
+                //Save list to preferences
+                editor.putStringSet(PREFS_KEY_JOURNAL_SET, myJournalList)
+                editor.apply()
+            }
+        }
     }
     
     fun getHashSet() : HashSet<String> = HashSet(preference.getStringSet(PREFS_KEY_JOURNAL_SET, HashSet<String>()))

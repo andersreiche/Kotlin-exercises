@@ -23,7 +23,6 @@ class AddJournalActivity : AppCompatActivity() {
         }
     }
 
-
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menuInflater.inflate(R.menu.menu_add, menu)
         return true
@@ -33,6 +32,7 @@ class AddJournalActivity : AppCompatActivity() {
         val i = Intent(this, MainActivity::class.java)
         i.putExtra("Title", editTitle.text)
         i.putExtra("Description", editDescription.text)
+        i.putExtra("Timestamp", (System.currentTimeMillis()/1000).toString())
         startActivity(i)
     }
 

@@ -28,34 +28,9 @@ class MainActivity : AppCompatActivity() {
             showAddJournal()
         }
 
-        //Click to view list entry
-        main_listview.setOnItemClickListener {
-                parent: AdapterView<*>?, view: View?, position: Int, id: Long ->
-            val extraTitle = dataArray[position].title
-            val extraDescription = dataArray[position].description
-            val i = Intent(this, ViewJournalActivity::class.java)
-            i.putExtra("viewTitle", extraTitle)
-            i.putExtra("viewDescription", extraDescription)
-            startActivity(i)
-        }
-
-        //Long click to remove list entry. Uses AlertDialog for confirmation
-        main_listview.setOnItemLongClickListener { parent, view, position, id ->
-            val alert = AlertDialog.Builder(this)
-            alert.setTitle(getString(R.string.alertDeleteConfirmationTitle))
-            alert.setMessage(getString(R.string.alertDeleteConfirmationText))
-            alert.setPositiveButton(getString(R.string.alertSetPositiveButtonText)) { dialog, which ->
-                //Delete list entry
-                dataArray.remove(dataArray[position])
-                journalAdapter.notifyDataSetChanged()
-            }
-            alert.setNegativeButton(getString(R.string.alertSetNegativeButtonText)){ dialog, which ->
-                //Do nothing
-            }
-            val dialog: AlertDialog = alert.create()
-            dialog.show()
-            true
-        }
+        //Click to view list entry, long click to remove list entry
+        onListClick()
+        onLongListClick()
         
         prefenceManager = JournalPreferenceManager(this)
 
@@ -72,11 +47,43 @@ class MainActivity : AppCompatActivity() {
         val extras = intent.extras ?: return
         val title = extras.get("Title")
         val description = extras.get("Description")
-        val newEntry = JournalEntry(title.toString(), description.toString())
+        val extraTime = extras.get("Timestamp")
+        val newEntry = JournalEntry(title.toString(), description.toString(), extraTime.toString())
         prefenceManager.saveJournal(newEntry)
         updateListView()
+    }
 
+    fun onListClick() {
+        main_listview.setOnItemClickListener {
+                parent: AdapterView<*>?, view: View?, position: Int, id: Long ->
+            val extraTitle = dataArray[position].title
+            val extraDescription = dataArray[position].description
+            val i = Intent(this, ViewJournalActivity::class.java)
+            i.putExtra("viewTitle", extraTitle)
+            i.putExtra("viewDescription", extraDescription)
+            startActivity(i)
+        }
+    }
 
+    fun onLongListClick() {
+        main_listview.setOnItemLongClickListener { parent, view, position, id ->
+            val alert = AlertDialog.Builder(this)
+            alert.setTitle(getString(R.string.alertDeleteConfirmationTitle))
+            alert.setMessage(getString(R.string.alertDeleteConfirmationText))
+            alert.setPositiveButton(getString(R.string.alertSetPositiveButtonText)) { dialog, which ->
+                //Delete list entry
+                prefenceManager.removeJournal(dataArray[position], dataArray)
+                dataArray.remove(dataArray[position])
+                updateListView()
+                //journalAdapter.notifyDataSetChanged()
+            }
+            alert.setNegativeButton(getString(R.string.alertSetNegativeButtonText)){ dialog, which ->
+                //Do nothing
+            }
+            val dialog: AlertDialog = alert.create()
+            dialog.show()
+            true
+        }
     }
 
     fun updateListView() {
