@@ -7,7 +7,6 @@ class JournalPreferenceManager(context: Context) {
 
     val MY_PREF = "MySharedJournalPreference"
     val PREFS_KEY_JOURNAL_SET = "MyJournalSetKey"
-
     var preference = context.getSharedPreferences(MY_PREF, Context.MODE_PRIVATE)
 
     fun saveJournal(journal : JournalEntry) {
