@@ -52,7 +52,6 @@ class MainActivity : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == 90) {
             if (resultCode == Activity.RESULT_OK) {
-
                 //Grab data from AddJournalActivity and add to the list
                 val title = data?.getStringExtra("Title")
                 val description = data?.getStringExtra("Description")
