@@ -1,5 +1,6 @@
 package study.anders.dk.challenge3
 
+import android.app.Activity
 import android.content.Intent
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
@@ -29,11 +30,12 @@ class AddJournalActivity : AppCompatActivity() {
     }
 
     fun saveJournal() {
-        val i = Intent(this, MainActivity::class.java)
-        i.putExtra("Title", editTitle.text)
-        i.putExtra("Description", editDescription.text)
+        val i = Intent()
+        i.putExtra("Title", editTitle.text.toString())
+        i.putExtra("Description", editDescription.text.toString())
         i.putExtra("Timestamp", (System.currentTimeMillis()/1000).toString())
-        startActivity(i)
+        setResult(Activity.RESULT_OK, i)
+        finish()
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {

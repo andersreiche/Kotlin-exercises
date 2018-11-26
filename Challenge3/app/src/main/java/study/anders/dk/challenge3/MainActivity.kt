@@ -1,5 +1,6 @@
 package study.anders.dk.challenge3
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.app.AlertDialog
@@ -7,8 +8,11 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar
 import android.view.*
 import android.widget.AdapterView
+import android.widget.Toast
 
 import kotlinx.android.synthetic.main.activity_main.*
+
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -42,15 +46,22 @@ class MainActivity : AppCompatActivity() {
 
         //Set adapter of the ListView
         main_listview.adapter = journalAdapter
+    }
 
-        //Grab data from AddJournalActivity and add to the list
-        val extras = intent.extras ?: return
-        val title = extras.get("Title")
-        val description = extras.get("Description")
-        val extraTime = extras.get("Timestamp")
-        val newEntry = JournalEntry(title.toString(), description.toString(), extraTime.toString())
-        prefenceManager.saveJournal(newEntry)
-        updateListView()
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == 90) {
+            if (resultCode == Activity.RESULT_OK) {
+
+                //Grab data from AddJournalActivity and add to the list
+                val title = data?.getStringExtra("Title")
+                val description = data?.getStringExtra("Description")
+                val extraTime = data?.getStringExtra("Timestamp")
+                val newEntry = JournalEntry(title.toString(), description.toString(), extraTime.toString())
+                prefenceManager.saveJournal(newEntry)
+                updateListView()
+            }
+        }
     }
 
     fun onListClick() {
@@ -95,7 +106,7 @@ class MainActivity : AppCompatActivity() {
 
     fun showAddJournal() {
         val i = Intent(this, AddJournalActivity::class.java)
-        startActivity(i)
+        startActivityForResult(i, 90)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
