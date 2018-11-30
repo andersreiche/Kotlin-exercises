@@ -2,16 +2,20 @@ package study.anders.dk.kotlinchatchallange
 
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
+import android.support.v7.app.AlertDialog
 import android.view.View
 import android.widget.ArrayAdapter
 import com.google.firebase.database.*
 import kotlinx.android.synthetic.main.activity_main.*
 
-data class Message(var value: String = "", var user: String = "", var id: Int = 0)
+data class Message(var value: String = "", var user: String = "")
 
 class MainActivity : AppCompatActivity() {
 
     val MESSAGES_REF = "instantMessage"
+
+    var listKeys = ArrayList<String>();
+    var persistenceEnabled = false
 
     lateinit var arrayAdapter: ArrayAdapter<String>
     lateinit var firebaseDBref: DatabaseReference
@@ -25,7 +29,12 @@ class MainActivity : AppCompatActivity() {
         listView.adapter = arrayAdapter
 
         //Initialize database reference
+        if (!persistenceEnabled) {
+            FirebaseDatabase.getInstance().setPersistenceEnabled(true)
+            persistenceEnabled = true;
+        }
         firebaseDBref = FirebaseDatabase.getInstance().reference
+        //FirebaseDatabase.getInstance().setPersistenceEnabled(true)
 
         val messageRef = firebaseDBref.child(MESSAGES_REF)
 
@@ -33,8 +42,10 @@ class MainActivity : AppCompatActivity() {
 
             override fun onChildAdded(p0: DataSnapshot, p1: String?) {
                 val message = p0.getValue(Message::class.java)
+
                 if(message != null) {
                     arrayAdapter.add(message.value)
+                    listKeys.add(p0.key.toString())
                 }
             }
 
@@ -51,10 +62,27 @@ class MainActivity : AppCompatActivity() {
             }
 
             override fun onChildRemoved(p0: DataSnapshot) {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+                val message = p0.getValue(Message::class.java)
+                arrayAdapter.remove(message?.value)
             }
 
         })
+        listView.setOnItemLongClickListener { parent, view, position, id ->
+            val alert = AlertDialog.Builder(this)
+            alert.setTitle(getString(R.string.alertDeleteConfirmationTitle))
+            alert.setMessage(getString(R.string.alertDeleteConfirmationText))
+            alert.setPositiveButton(getString(R.string.alertSetPositiveButtonText)) { dialog, which ->
+                //Delete list entry
+                firebaseDBref.child(MESSAGES_REF).child(listKeys[position]).removeValue()
+                listKeys.removeAt(position)
+            }
+            alert.setNegativeButton(getString(R.string.alertSetNegativeButtonText)){ dialog, which ->
+                //Do nothing
+            }
+            val dialog: AlertDialog = alert.create()
+            dialog.show()
+            true
+        }
     }
 
     fun sendChatMessage(view: View) {
@@ -66,4 +94,5 @@ class MainActivity : AppCompatActivity() {
             editText.setText("")
         }
     }
+
 }

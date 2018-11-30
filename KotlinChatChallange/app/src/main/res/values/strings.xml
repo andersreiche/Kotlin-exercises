@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">KotlinChatChallange</string>
+    <string name="alertDeleteConfirmationTitle">DELETE</string>
+    <string name="alertDeleteConfirmationText">Are you sure you want to delete entry?</string>
+    <string name="alertSetPositiveButtonText">DELETE</string>
+    <string name="alertSetNegativeButtonText">CANCEL</string>
 </resources>
