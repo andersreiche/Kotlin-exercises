@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "597922386129",
+    "firebase_url": "https://kotlinchatchallange.firebaseio.com",
+    "project_id": "kotlinchatchallange",
+    "storage_bucket": "kotlinchatchallange.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:597922386129:android:5e0c3242b309e4f8",
+        "android_client_info": {
+          "package_name": "study.anders.dk.kotlinchatchallange"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "597922386129-hq6csir61r7facg1clvde5jro9ajvodu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "study.anders.dk.kotlinchatchallange",
+            "certificate_hash": "b22a33d5d742e83b05640af373c5cfcebb924101"
+          }
+        },
+        {
+          "client_id": "597922386129-f4lij9mrf2n519tnqgua0id0iosj0836.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDnJacnmeRGx6f3O59k3LXdMLage5mRmHc"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "597922386129-f4lij9mrf2n519tnqgua0id0iosj0836.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
