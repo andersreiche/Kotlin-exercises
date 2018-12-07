@@ -34,7 +34,6 @@ class MainActivity : AppCompatActivity() {
             persistenceEnabled = true;
         }
         firebaseDBref = FirebaseDatabase.getInstance().reference
-        //FirebaseDatabase.getInstance().setPersistenceEnabled(true)
 
         val messageRef = firebaseDBref.child(MESSAGES_REF)
 
