@@ -49,7 +49,6 @@ class MainActivity : AppCompatActivity() {
                 if(!it.isSuccessful) return@addOnCompleteListener
                 Log.d("MainActivity", "Created user with uid: ${it.result?.user?.uid}")
                 Toast.makeText(this, "Account created", Toast.LENGTH_LONG).show()
-
             }
             .addOnFailureListener{
                 Toast.makeText(this, "Failed to create user: ${it.message}", Toast.LENGTH_LONG).show()

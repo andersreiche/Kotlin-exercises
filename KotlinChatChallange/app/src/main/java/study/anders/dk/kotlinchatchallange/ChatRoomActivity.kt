@@ -22,6 +22,8 @@ class ChatRoomActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chat_room)
 
+
+
         //Initialize arrayAdapter
         arrayAdapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, ArrayList<String>())
         listView.adapter = arrayAdapter
@@ -84,9 +86,11 @@ class ChatRoomActivity : AppCompatActivity() {
 
     fun sendChatMessage(view: View) {
         val text = editText.text.toString()
+        val extras = intent.extras ?: return
+        val email = extras.get("email").toString()
 
         if (!text.isEmpty()) {
-            val message = Message(text, "Anonymous")
+            val message = Message(email + ": " + text, email)
             firebaseDBref.child(MESSAGES_REF).push().setValue(message)
             editText.setText("")
         }

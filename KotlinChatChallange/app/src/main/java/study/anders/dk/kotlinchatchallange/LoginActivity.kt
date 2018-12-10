@@ -34,9 +34,9 @@ class LoginActivity : AppCompatActivity() {
 
                     Log.d("Login", "Successfully logged in: ${it.result?.user?.uid}")
 
-                    val intent = Intent(this, ChatRoomActivity::class.java)
-                    intent.flags = Intent.FLAG_ACTIVITY_CLEAR_TASK.or(Intent.FLAG_ACTIVITY_NEW_TASK)
-                    startActivity(intent)
+                    val i = Intent(this, ChatRoomActivity::class.java)
+                    i.putExtra("email", email)
+                    startActivity(i)
                 }
                 .addOnFailureListener {
                     Toast.makeText(this, "Failed to log in: ${it.message}", Toast.LENGTH_SHORT).show()
