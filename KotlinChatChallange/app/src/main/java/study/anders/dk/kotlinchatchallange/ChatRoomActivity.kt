@@ -11,7 +11,6 @@ import kotlinx.android.synthetic.main.activity_chat_room.*
 class ChatRoomActivity : AppCompatActivity() {
 
     val MESSAGES_REF = "instantMessage"
-
     var listKeys = ArrayList<String>();
     var persistenceEnabled = false
 
@@ -22,8 +21,6 @@ class ChatRoomActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_chat_room)
 
-
-
         //Initialize arrayAdapter
         arrayAdapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, ArrayList<String>())
         listView.adapter = arrayAdapter
@@ -33,12 +30,11 @@ class ChatRoomActivity : AppCompatActivity() {
             FirebaseDatabase.getInstance().setPersistenceEnabled(true)
             persistenceEnabled = true;
         }
-        firebaseDBref = FirebaseDatabase.getInstance().reference
 
+        firebaseDBref = FirebaseDatabase.getInstance().reference
         val messageRef = firebaseDBref.child(MESSAGES_REF)
 
         messageRef.addChildEventListener(object: ChildEventListener {
-
             override fun onChildAdded(p0: DataSnapshot, p1: String?) {
                 val message = p0.getValue(Message::class.java)
 
@@ -47,24 +43,19 @@ class ChatRoomActivity : AppCompatActivity() {
                     listKeys.add(p0.key.toString())
                 }
             }
-
             override fun onCancelled(p0: DatabaseError) {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+                TODO("not implemented")
             }
-
             override fun onChildMoved(p0: DataSnapshot, p1: String?) {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+                TODO("not implemented")
             }
-
             override fun onChildChanged(p0: DataSnapshot, p1: String?) {
-                TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+                TODO("not implemented")
             }
-
             override fun onChildRemoved(p0: DataSnapshot) {
                 val message = p0.getValue(Message::class.java)
                 arrayAdapter.remove(message?.value)
             }
-
         })
         listView.setOnItemLongClickListener { parent, view, position, id ->
             val alert = AlertDialog.Builder(this)

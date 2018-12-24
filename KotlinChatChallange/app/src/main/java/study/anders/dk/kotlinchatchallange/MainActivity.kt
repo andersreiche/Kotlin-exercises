@@ -26,11 +26,8 @@ class MainActivity : AppCompatActivity() {
         }
         textview_already_have_account.setOnClickListener{
             val i = Intent(this,LoginActivity::class.java)
-
-
             startActivity(i)
         }
-
     }
 
     fun register(){
